@@ -6,24 +6,17 @@ The FrugalGPT framework offers a collection of techniques for _building LLM appl
 ## 🔧 Installation
 To install FrugalGPT, run the following commands:
 
-`git clone https://github.com/stanford-futuredata/FrugalGPT`
-
-`cd FrugalGPT`
-
-`pip install git+https://github.com/stanford-futuredata/FrugalGPT`
-
-`wget  https://github.com/lchen001/DataHolder/releases/download/v0.0.1/HEADLINES.zip`
-
-` unzip HEADLINES.zip -d strategy/`
-
-`rm HEADLINES.zip`
-
-`wget -P db/ https://github.com/lchen001/DataHolder/releases/download/v0.0.1/HEADLINES.sqlite`
-
-`wget -P db/ https://github.com/lchen001/DataHolder/releases/download/v0.0.1/qa_cache.sqlite`
+```
+git clone https://github.com/stanford-futuredata/FrugalGPT
+cd FrugalGPT
+pip install git+https://github.com/stanford-futuredata/FrugalGPT
+wget  https://github.com/lchen001/DataHolder/releases/download/v0.0.1/HEADLINES.zip
+unzip HEADLINES.zip -d strategy/
+rm HEADLINES.zip
+wget -P db/ https://github.com/lchen001/DataHolder/releases/download/v0.0.1/HEADLINES.sqlite
+wget -P db/ https://github.com/lchen001/DataHolder/releases/download/v0.0.1/qa_cache.sqlite
+```
  
-
-
 
 
 Now you are ready to use the [intro notebook](intro.ipynb)!
