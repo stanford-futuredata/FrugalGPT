@@ -1,0 +1,26 @@
+Please determine the price direction (up, down, neutral, or none) in the following news headlines.
+
+Q: december gold down $1 at $749 an ounce on nymex
+A: down
+
+Q: august gold up $7.60 at $878.80 an ounce on nymex
+A: up
+
+Q: commodity outlook: gold may find it tough to top 30,920 level
+A: none
+
+Q: gold prices at 1-week lows as dollar remains supported
+A: neutral
+
+Q: illegal flow of gold to nepal from india across porous border showing upward swing
+A: none
+
+Q: gold prices steady in early asia trade with focus on hong kong
+A: neutral
+
+Q: gold adds 0.7% to trade at record $1,601.50/oz
+A: up
+
+Q: gold loses sheen on muted demand, silver also eases
+A: down
+

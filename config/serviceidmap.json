@@ -1,0 +1,17 @@
+{   
+    "openaichat/gpt-3.5-turbo":"1000",
+    "openaichat/gpt-4":"2000",
+    "openai/text-davinci-002":"0",
+    "openai/text-curie-001":"1",
+
+    "ai21/j1-large":"20002",
+    "ai21/j1-grande":"20001",
+    "ai21/j1-jumbo":"20000",
+
+    "textsynth/gptj_6B":"60002",
+    "textsynth/fairseq_gpt_13B":"60001",
+    "textsynth/gptneox_20B":"60000",
+
+    "cohere/xlarge":"30000", 
+    "cohere/medium":"30001"            
+}
