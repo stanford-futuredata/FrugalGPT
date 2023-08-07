@@ -468,7 +468,7 @@ class AnthropicModelProvider(APIModelProvider):
         self._model = model
         assert self._API_KEY is not None, "Please set ANTHROPIC_API_KEY env var for running through OpenAI"
         self.client = anthropic.Client(os.environ['ANTHROPIC_API_KEY'])
-
+        #self.client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     def _request_format(self,
                         context,

@@ -12,7 +12,7 @@ setup(
         'cohere',
         'smart-open',
         'jsonlines',
-        'anthropic',
+        'anthropic==0.2.10',
         'scikit-learn',
         'evaluate',
         'scipy',
