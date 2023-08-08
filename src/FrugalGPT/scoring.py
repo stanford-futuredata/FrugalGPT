@@ -1,7 +1,7 @@
 import evaluate, json, numpy, torch
 from sklearn.model_selection import train_test_split
-from transformers import DistilBertTokenizerFast, AutoModelForSequenceClassification
-from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments
+from transformers import DistilBertTokenizerFast, BertTokenizerFast, AlbertTokenizerFast, AutoModelForSequenceClassification
+from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments, BertForSequenceClassification, AlbertForSequenceClassification
 from transformers import GPT2ForSequenceClassification, XLNetForSequenceClassification, XLNetTokenizer
 from torch.nn import functional as F
 
@@ -21,7 +21,7 @@ device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
 #tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
 
-tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+# tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
 
 #tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 #tokenizer.pad_token = tokenizer.eos_token
@@ -87,15 +87,27 @@ class IMDbDataset(torch.utils.data.Dataset):
 
 
 class Score(object):
+    def __init__(self,          
+                 score_type='DistilBert'):
+        if(score_type=='DistilBert'):
+            self.tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+        if(score_type=='Bert'):
+            self.tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+        if(score_type=='AlBert'):
+            self.tokenizer = AlbertTokenizerFast.from_pretrained('albert-base-v2')
+        self.score_type = score_type
+        return
     def train(self,
               train_texts, 
               train_labels,
+              #score_type='DistilBert',
               ):
-
+        
         train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.6)
         #print("train_text 0",train_texts[0])
         #print("val_text 0",val_texts[0])
         #print("----------------------------")
+        tokenizer = self.tokenizer
         train_encodings = tokenizer(train_texts, truncation=True, padding=True,max_length=512)
         val_encodings = tokenizer(val_texts, truncation=True, padding=True,max_length=512)
 
@@ -116,8 +128,14 @@ class Score(object):
     load_best_model_at_end=True,
     seed=2023,
     )
+        score_type = self.score_type
+        if(score_type=='DistilBert'):
+            model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased")
+        if(score_type=='Bert'):
+            model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
+        if(score_type=='AlBert'):
+            model = AlbertForSequenceClassification.from_pretrained("albert-base-v2")
 
-        model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased")
         #model = GPT2ForSequenceClassification.from_pretrained("gpt2")
         #model = XLNetForSequenceClassification.from_pretrained("xlnet-base-cased")
 
@@ -140,7 +158,7 @@ class Score(object):
                 model,text):
         #trainer = self.trainer
         model = self.model
-        encoding = tokenizer(text, return_tensors="pt",truncation=True, padding=True)
+        encoding = self.tokenizer(text, return_tensors="pt",truncation=True, padding=True)
         encoding = {k: v.to(model.device) for k,v in encoding.items()}
         outputs = model(**encoding)
         logit_score = outputs.logits.cpu().detach()
