@@ -46,6 +46,7 @@ And read more in the academic paper:
 
   - ✅ Added the generations from 12 commercial LLM APIs for each dataset evaluated in the paper
   - ✅ Included both input queries and associated parameters (e.g., temperature and stop token)
+  - ✅ Released them as CSV files [here](https://github.com/stanford-futuredata/FrugalGPT/releases/tag/0.0.1)
     
 ## 🎯 Reference
 
