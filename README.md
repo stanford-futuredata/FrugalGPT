@@ -38,6 +38,15 @@ You can get an overview via our Twitter threads:
 And read more in the academic paper:
 * [**FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance**](https://arxiv.org/pdf/2305.05176.pdf)
 
+
+## 📣 Updates & Changelog
+
+
+### 🔹 2024.01.01 - Extracted API generations 
+
+  - ✅ Added the generations from 12 commercial LLM APIs for each dataset evaluated in the paper
+  - ✅ Included both input queries and associated parameters (e.g., temperature and stop token)
+    
 ## 🎯 Reference
 
 If you use FrugalGPT in a research paper, please cite our work as follows:
