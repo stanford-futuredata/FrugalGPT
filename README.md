@@ -38,6 +38,8 @@ You can get an overview via our Twitter threads:
 And read more in the academic paper:
 * [**FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance**](https://arxiv.org/pdf/2305.05176.pdf)
 
+A detailed blog with code examples:
+* [**Implementing FrugalGPT: Reducing LLM Costs & Improving Performance**](https://portkey.ai/blog/implementing-frugalgpt-smarter-llm-usage-for-lower-costs/)
 
 ## 📣 Updates & Changelog
 
