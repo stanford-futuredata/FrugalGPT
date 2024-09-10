@@ -511,6 +511,41 @@ class AnthropicModelProvider(APIModelProvider):
             )  
         return response      
 
+class TogetherAIModelProvider(APIModelProvider):
+    _ENDPOINT = os.environ.get("TOGETHERAI_ENDPOINT", "https://api.together.ai/v1/chat/completions")
+    _API_KEY = os.environ.get('TOGETHER_API_KEY', None)
+    _NAME = "togetherai"
+    
+    def __init__(self, model):
+        self._model = model
+        assert self._API_KEY is not None, "Please set TOGETHER_API_KEY env var for running through Together AI"
+    
+    def _request_format(self, context, genparams):
+        req = {
+            "model": self._model,
+            "messages": [{"content": context, "role": "user"}],
+            "max_tokens": genparams.max_tokens,
+            "temperature": genparams.temperature,
+            "top_p": 0.7,  # Defaulting to values from your example code
+            "top_k": 50,
+            "repetition_penalty": 1,
+            "stop": genparams.stop,
+            "stream": False,
+        }
+        return req
+
+    def _response_format(self, response):
+        result = dict()
+        result['raw'] = response
+        result["completion"] = response['choices'][0]['message']['content']
+        return result
+
+    def _get_io_tokens(self, context, completion):
+        # If Together AI has token usage, adapt this accordingly
+        tk1 = completion['raw'].get('usage', {}).get('prompt_tokens', 0)
+        tk2 = completion['raw'].get('usage', {}).get('completion_tokens', 0)
+        return tk1, tk2
+
 _PROVIDER_MAP = {
     "openai": OpenAIModelProvider, # cleaned
     "ai21": AI21ModelProvider, # cleaned
@@ -519,6 +554,7 @@ _PROVIDER_MAP = {
     "textsynth":TextSynthModelProvider, # cleaned
     "openaichat":OpenAIChatModelProvider,# cleaned
     "anthropic":AnthropicModelProvider,
+    "togetherai":TogetherAIModelProvider,
 }
 
 

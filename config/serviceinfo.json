@@ -71,6 +71,30 @@
     
     "openaichat":
     {   
+        "gpt-4o-mini":
+        {   
+        "cost_input":0.00000015,
+        "cost_output":0.0000006,
+        "cost_fixed":0,
+        "fixed_size":0  
+        },
+
+        "gpt-4-turbo":
+        {
+             "cost_input":0.000015,
+            "cost_output":0.000030,
+            "cost_fixed":0,
+            "fixed_size":0  
+        },
+
+        "gpt-4o":
+        {
+            "cost_input":0.000005,
+            "cost_output":0.000015,
+            "cost_fixed":0,
+            "fixed_size":0  
+        },
+
         "gpt-3.5-turbo":
         {
             "cost_input":0.000002,
@@ -78,6 +102,7 @@
             "cost_fixed":0,
             "fixed_size":0  
         },
+        
         "gpt-4":
         {
             "cost_input":0.00003,
@@ -174,7 +199,68 @@
             "fixed_size":0
         }                    
     },
-      
+
+    "togetherai":
+    {   "google/gemma-2b-it":
+        {
+            "cost_input":0.0000001,
+            "cost_output":0.0000001,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "google/gemma-2-9b-it":
+        {
+            "cost_input":0.0000003,
+            "cost_output":0.0000003,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+        
+
+        "meta-llama/Meta-Llama-3-70B-Instruct-Turbo":
+        {
+            "cost_input":0.00000088,
+            "cost_output":0.00000088,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3-70B-Instruct-Lite":
+        {
+            "cost_input":0.00000054,
+            "cost_output":0.00000054,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo":
+        {
+            "cost_input":0.00000018,
+            "cost_output":0.00000018,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo":
+        {
+            "cost_input":0.00000088,
+            "cost_output":0.00000088,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+
+        "meta-llama/Llama-3-70b-chat-hf":
+        {
+            "cost_input":0.0000009,
+            "cost_output":0.0000009,
+            "cost_fixed":0,
+            "fixed_size":0
+        }
+                    
+    },  
+
     "anthropic":
     {   "claude-1":
         {
