@@ -34,8 +34,10 @@ class LLMVanilla(object):
         self.services = dict()
         self.cost = 0
         for item in service_name:
-            provider = item.split('/')[0]
-            name = item.split('/')[1]
+            #provider = item.split('/')[0]
+            #name = item.split('/')[1]
+            provider, name = item.split('/', 1)
+
             self.services[item] = make_model(provider,name)
         return
     

@@ -6,6 +6,8 @@ from .scoring import Score
 from sklearn.model_selection import train_test_split
 from .llmchain import LLMChain
 import json, os
+import random
+
 def scorer_text(text):
     #return text
 
@@ -20,12 +22,15 @@ class LLMCascade(object):
                  #service_names =['openaichat/gpt-3.5-turbo','openaichat/gpt-4'],
                  metric="em",
                  db_path='db/HEADLINES.sqlite',
+                 score_noise_injection=False,
                  ):
         # Initialization code for the FrugalGPT class
         self.MyLLMEngine = LLMVanilla(db_path=db_path)    
         self.MyScores = dict()
         self.LLMChain = LLMChain(metric=metric)
         #self.service_names =['openaichat/gpt-3.5-turbo','openaichat/gpt-4'],
+        self.eps=1e-8
+        self.score_noise_injection = score_noise_injection
 
         return 
 
@@ -44,7 +49,7 @@ class LLMCascade(object):
         #print("scoer keys:",self.scorer.keys())
         return
     
-    def loadmodelnames(self,loadpath):
+    def loadmodelnamesold(self,loadpath):
         directories = []
         for entry in os.scandir(loadpath):
             if entry.is_dir():
@@ -54,6 +59,17 @@ class LLMCascade(object):
                         directories.append(subdirectory_name)
         keys = directories
         return keys
+
+    def loadmodelnames(self, loadpath):
+      directories = []
+      for dirpath, dirnames, _ in os.walk(loadpath):
+          if not dirnames:  # If there are no more subdirectories, it's the last directory
+              subdirectory_name = os.path.relpath(dirpath, loadpath)
+              directories.append(subdirectory_name)
+      keys = directories
+      return keys  # Return the directories list if needed
+
+
     def save(self, savepath="strategy/HEADLINES/"):
         # Save both Scores and LLChains to the disk
         if not os.path.exists(savepath):
@@ -108,6 +124,8 @@ class LLMCascade(object):
             res = MyLLMEngine.get_completion(query=query,service_name=service_name,genparams=genparams)
             cost += MyLLMEngine.get_cost()
             score = self.MyScores[service_name].get_score(scorer_text(query+res))
+            if(self.score_noise_injection==True):
+              score+=random.random()*self.eps
             #print("score and score thres:",service_name,score,score_thres)
             if(score>1-score_thres):
                 break
@@ -166,12 +184,15 @@ class LLMCascade(object):
         return MyScore, model
     
     def get_scores(self, data, name):
+        eps=self.eps
         model = self.scorer[name]
         scores_dict = dict()
         rawdata = data[['_id','query','answer']].to_dict(orient='records')
         for ptr in rawdata:
             text = scorer_text(ptr['query']+ptr['answer'])
             score1 = self.MyScores[name].get_score(text)
+            if(self.score_noise_injection==True):
+              score1+=random.random()*eps
             scores_dict[ptr['_id']] = score1
         return scores_dict
 
@@ -204,7 +225,8 @@ class LLMCascade(object):
             scores[key] = self.get_scores(model_perf_test[key],name=key)
             tempsave(labels,responses[key],scores[key],key)
         #print("responses",responses)  
-                  
+        #print("labels",labels) 
+        #print("scores",scores)         
         LLMChain1.train(responses,labels,scores)
         self.LLMChain = LLMChain1
         return

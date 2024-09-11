@@ -3,6 +3,19 @@ from sklearn.model_selection import train_test_split
 from transformers import DistilBertTokenizerFast, BertTokenizerFast, AlbertTokenizerFast, AutoModelForSequenceClassification
 from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments, BertForSequenceClassification, AlbertForSequenceClassification
 from transformers import GPT2ForSequenceClassification, XLNetForSequenceClassification, XLNetTokenizer
+
+
+from transformers import (
+    DistilBertTokenizerFast,
+    BertTokenizerFast,
+    AlbertTokenizerFast,
+    RobertaTokenizerFast,
+    GPT2Tokenizer,  # Correct tokenizer for GPT-2
+    T5TokenizerFast,
+    DebertaTokenizerFast,
+    XLNetTokenizerFast
+)
+
 from torch.nn import functional as F
 
 from transformers import set_seed
@@ -95,7 +108,21 @@ class Score(object):
             self.tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
         if(score_type=='AlBert'):
             self.tokenizer = AlbertTokenizerFast.from_pretrained('albert-base-v2')
+        elif score_type == 'GPT-2L':
+          self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2-large')
+          self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+
+        elif score_type == 'GPT-2':
+          self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+          self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+
+
+        elif score_type == 'T5':
+          self.tokenizer = T5TokenizerFast.from_pretrained('t5-large')        
+
         self.score_type = score_type
+
+        
         return
     def train(self,
               train_texts, 
@@ -103,7 +130,7 @@ class Score(object):
               #score_type='DistilBert',
               ):
         
-        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.6)
+        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.4)
         #print("train_text 0",train_texts[0])
         #print("val_text 0",val_texts[0])
         #print("----------------------------")
@@ -116,8 +143,8 @@ class Score(object):
 
         training_args = TrainingArguments(
     output_dir='./scorer_location',          # output directory
-    num_train_epochs=8,              # total number of training epochs
-    per_device_train_batch_size=16,  # batch size per device during training
+    num_train_epochs=10,              # total number of training epochs
+    per_device_train_batch_size=8,  # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
     warmup_steps=500,                # number of warmup steps for learning rate scheduler
     weight_decay=0.01,               # strength of weight decay
@@ -126,7 +153,7 @@ class Score(object):
     evaluation_strategy="epoch",
 	save_strategy ="epoch",
     load_best_model_at_end=True,
-    seed=2023,
+    seed=2024,
     )
         score_type = self.score_type
         if(score_type=='DistilBert'):
@@ -135,6 +162,14 @@ class Score(object):
             model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
         if(score_type=='AlBert'):
             model = AlbertForSequenceClassification.from_pretrained("albert-base-v2")
+
+        if score_type == 'GPT-2L':
+          model = GPT2ForSequenceClassification.from_pretrained("gpt2-large")
+          model.config.pad_token_id = self.tokenizer.pad_token_id
+
+        if score_type == 'GPT-2':
+          model = GPT2ForSequenceClassification.from_pretrained("gpt2")
+          model.config.pad_token_id = self.tokenizer.pad_token_id
 
         #model = GPT2ForSequenceClassification.from_pretrained("gpt2")
         #model = XLNetForSequenceClassification.from_pretrained("xlnet-base-cased")
@@ -146,7 +181,6 @@ class Score(object):
     train_dataset=train_dataset,         # training dataset
     eval_dataset=val_dataset ,            # evaluation dataset
     compute_metrics=compute_metrics,
-
         )
 
         trainer.train()
