@@ -17,12 +17,14 @@ def scorer_text(text):
 def tempsave(label, response, score,name):
     return
 
+
 class LLMCascade(object):
     def __init__(self, 
                  #service_names =['openaichat/gpt-3.5-turbo','openaichat/gpt-4'],
                  metric="em",
                  db_path='db/HEADLINES.sqlite',
                  score_noise_injection=False,
+                 batch_build = False,
                  ):
         # Initialization code for the FrugalGPT class
         self.MyLLMEngine = LLMVanilla(db_path=db_path)    
@@ -31,7 +33,7 @@ class LLMCascade(object):
         #self.service_names =['openaichat/gpt-3.5-turbo','openaichat/gpt-4'],
         self.eps=1e-8
         self.score_noise_injection = score_noise_injection
-
+        self.batch_build = batch_build
         return 
 
     def load(self,loadpath="strategy/HEADLINES/",budget=0.01):
@@ -91,9 +93,11 @@ class LLMCascade(object):
               genparams=GenerationParameter(max_tokens=50, temperature=0.1, stop=['\n']),
               no_scorer_train=False,
               score_type='DistilBert',
+              prefix="",
               ):
         self.no_scorer_train = no_scorer_train
         self.score_type = score_type
+        self.prefix = prefix
         # Three major steps
         # Step 1: evaluate all services on the given dataset
         train, test = train_test_split(trainingdata, test_size=0.01)
@@ -117,13 +121,16 @@ class LLMCascade(object):
         MyLLMEngine = self.MyLLMEngine
         cost = 0 
         LLMChain.reset()
+        prefix = self.prefix
         while(1):
             service_name, score_thres = LLMChain.nextAPIandScore()
             if(service_name==None):
                 break
             res = MyLLMEngine.get_completion(query=query,service_name=service_name,genparams=genparams)
             cost += MyLLMEngine.get_cost()
-            score = self.MyScores[service_name].get_score(scorer_text(query+res))
+            t1 = query+" "+res
+            t2 = t1.removeprefix(prefix)
+            score = self.MyScores[service_name].get_score(scorer_text(t2))
             if(self.score_noise_injection==True):
               score+=random.random()*self.eps
             #print("score and score thres:",service_name,score,score_thres)
@@ -177,7 +184,13 @@ class LLMCascade(object):
     def _build_scorer(self,res_and_eval):
         #train, test = train_test_split(res_and_eval, test_size=0.2)
         #print("res_and_eval",res_and_eval)
-        traintext = list((res_and_eval['query']+res_and_eval['answer']).apply(scorer_text))
+        #traintext = list((res_and_eval['query']+res_and_eval['answer']).apply(scorer_text))
+        prefix = self.prefix
+        #traintext = list((res_and_eval['query'] + res_and_eval['answer']).apply(lambda x: scorer_text(x).removeprefix(prefix)))
+        traintext = list((res_and_eval['query'] +" "+ res_and_eval['answer']).apply(lambda x: scorer_text(x.removeprefix(prefix))))
+
+
+
         trainlabel = list(res_and_eval['quality'])
         MyScore = Score(score_type=self.score_type)
         model = MyScore.train(traintext,trainlabel)
@@ -189,7 +202,9 @@ class LLMCascade(object):
         scores_dict = dict()
         rawdata = data[['_id','query','answer']].to_dict(orient='records')
         for ptr in rawdata:
-            text = scorer_text(ptr['query']+ptr['answer'])
+            text0 = ptr['query']+" "+ptr['answer']
+            text0 = text0.removeprefix(self.prefix)
+            text = scorer_text(text0)
             score1 = self.MyScores[name].get_score(text)
             if(self.score_noise_injection==True):
               score1+=random.random()*eps
@@ -219,6 +234,20 @@ class LLMCascade(object):
         LLMChain1.setbudget(budget=budget)
         responses = dict()
         scores = dict()
+        if(self.batch_build):
+            try:
+                responses = self.responses
+                labels = self.labels
+                scores = self.scores         
+                print("scores",scores)
+
+                LLMChain1.train(responses,labels,scores)
+                self.LLMChain = LLMChain1
+                return
+
+            except:
+                print("first train")
+
         for key in model_perf_test:
             labels = model_perf_test[key][['_id','true_answer']].rename(columns={'true_answer': 'answer'}).to_dict(orient='records')
             responses[key] = table2json(model_perf_test[key])
@@ -226,7 +255,10 @@ class LLMCascade(object):
             tempsave(labels,responses[key],scores[key],key)
         #print("responses",responses)  
         #print("labels",labels) 
-        #print("scores",scores)         
+        print("scores",scores)
+        self.responses = responses
+        self.labels = labels
+        self.scores = scores         
         LLMChain1.train(responses,labels,scores)
         self.LLMChain = LLMChain1
         return

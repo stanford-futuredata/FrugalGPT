@@ -143,7 +143,7 @@ class Score(object):
 
         training_args = TrainingArguments(
     output_dir='./scorer_location',          # output directory
-    num_train_epochs=10,              # total number of training epochs
+    num_train_epochs=6,              # total number of training epochs
     per_device_train_batch_size=8,  # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
     warmup_steps=500,                # number of warmup steps for learning rate scheduler
@@ -227,6 +227,8 @@ class Score(object):
 
     def load(self,loadpath):
         self.model = AutoModelForSequenceClassification.from_pretrained(loadpath)
+        self.model = self.model.to(device)
+        print(f"device is {device}")
         return
     def save_scores(self,
                     q_path,

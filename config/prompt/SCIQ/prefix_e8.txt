@@ -1,0 +1,35 @@
+Please answer the following questions concisely.
+
+Context: inside these cells, glucose is immediately converted into glucose-6-phosphate. By doing this, a concentration gradient is established where glucose levels are higher in the blood than in the cells. This allows for glucose to continue moving from the blood to the cells where it is needed. Insulin also stimulates the storage of glucose as glycogen in the liver and muscle cells where it can be used for later energy needs of the body. Insulin also promotes the synthesis of protein in muscle. As you will see, muscle protein can be catabolized and used as fuel in times of starvation. If energy is exerted shortly after eating, the dietary fats and sugars that were just ingested will be processed and used immediately for energy. If not, the excess glucose is stored as glycogen in the liver and muscle cells, or as fat in adipose tissue; excess dietary fat is also stored as triglycerides in adipose tissues. Figure 24.21 summarizes the metabolic processes occurring in the body during the absorptive state.
+Question: Excess dietary fat is stored as triglycerides in the body. what type of tissue is used to store the triglycerides?
+Answer: adipose
+
+
+Context: trees that lose their leaves once a year.
+Question: What are trees that lose their leaves during winter called?
+Answer: deciduous
+
+Context: Primary Vesicles As the anterior end of the neural tube starts to develop into the brain, it undergoes a couple of enlargements; the result is the production of sac-like vesicles. Similar to a child’s balloon animal, the long, straight neural tube begins to take on a new shape. Three vesicles form at the first stage, which are called primary vesicles. These vesicles are given names that are based on Greek words, the main root word being enkephalon, which means “brain” (en- = “inside”; kephalon = “head”). The prefix to each generally corresponds to its position along the length of the developing nervous system. The prosencephalon (pros- = “in front”) is the forward-most vesicle, and the term can be loosely translated to mean forebrain. The mesencephalon (mes- = “middle”) is the next vesicle, which can be called the midbrain. The third vesicle at this stage is the rhombencephalon. The first part of this word is also the root of the word rhombus, which is a geometrical figure with four sides of equal length (a square is a rhombus with 90° angles). Whereas prosencephalon and mesencephalon translate into the English words forebrain and midbrain, there is not a word for “four-sided-figure-brain. ” However, the third vesicle can be called the hindbrain. One way of thinking about how the brain is arranged is to use these three regions—forebrain, midbrain, and hindbrain—which are based on the primary vesicle stage of development (Figure 13.3a).
+Question: As the anterior end of the neural tube starts to develop into the brain, it undergoes a couple of enlargements; the result is the production of these?
+Answer: sac-like vesicles
+
+Context: The immune response mainly involves the lymphatic system. The lymphatic system is a major part of the immune system. It produces leukocytes called lymphocytes. Lymphocytes are the key cells involved in the immune response. They recognize and help destroy particular pathogens in body fluids and cells. They also destroy certain cancer cells.
+Question: What system of the body is most involved in the immune response?
+Answer: lymphatic system
+
+Context: Carbohydrates are organic molecules that consist of carbon, hydrogen, and oxygen. They are made up of repeating units called saccharides. They provide cells with energy, store energy, and form structural tissues.
+Question: What are organic molecules that consist of carbon, hydrogen, and oxygen called?
+Answer: carbohydrates
+
+Context: Materials that are poor conductors of thermal energy are called thermal insulators. Gases such as air and materials such as plastic and wood are thermal insulators.
+Question: What are materials that cannot conduct thermal energy efficiently known as?
+Answer: thermal insulators
+
+Context: 
+Question: In our wildflower population, the pool of what remains constant from one generation to the next?
+Answer: genes
+
+Context: The relative sizes of the atoms show several trends with regard to the structure of the periodic table. Atoms become larger going down a column and smaller going across a period.
+Question: The relative sizes of the atoms show several trends with regard to what visual method of organization?
+Answer: periodic table   
+
