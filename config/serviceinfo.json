@@ -216,6 +216,14 @@
             "cost_fixed":0,
             "fixed_size":0
         },
+
+        "google/gemma-2-27b-it":
+        {
+            "cost_input":0.0000008,
+            "cost_output":0.0000008,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
         
 
         "meta-llama/Meta-Llama-3-70B-Instruct-Turbo":
@@ -233,6 +241,16 @@
             "cost_fixed":0,
             "fixed_size":0
         },
+
+        "meta-llama/Meta-Llama-3-8B-Instruct-Turbo":
+        {
+            "cost_input":0.00000018,
+            "cost_output":0.00000018,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+
 
         "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo":
         {
