@@ -228,7 +228,7 @@ class Score(object):
     def load(self,loadpath):
         self.model = AutoModelForSequenceClassification.from_pretrained(loadpath)
         self.model = self.model.to(device)
-        print(f"device is {device}")
+        #print(f"device is {device}")
         return
     def save_scores(self,
                     q_path,
