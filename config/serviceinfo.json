@@ -225,6 +225,31 @@
             "fixed_size":0
         },
         
+        
+        "meta-llama/Meta-Llama-3-8B-Instruct-Lite":
+        {
+            "cost_input":0.00000010,
+            "cost_output":0.00000010,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "Qwen/Qwen1.5-110B-Chat":
+        {
+            "cost_input":0.00000180,
+            "cost_output":0.00000180,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+        
+
+        "mistralai/Mistral-7B-Instruct-v0.3":
+        {
+            "cost_input":0.00000020,
+            "cost_output":0.00000020,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
 
         "meta-llama/Meta-Llama-3-70B-Instruct-Turbo":
         {
@@ -233,6 +258,8 @@
             "cost_fixed":0,
             "fixed_size":0
         },
+
+
 
         "meta-llama/Meta-Llama-3-70B-Instruct-Lite":
         {
