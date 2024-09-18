@@ -7,6 +7,10 @@ from .utils import help, getservicename
 
 global mydict
 
+import concurrent.futures
+from collections import OrderedDict
+from tqdm import tqdm
+
 serviceidmap = json.load(open("config/serviceidmap.json"))
 
 def form_keys(service_id,
@@ -23,7 +27,9 @@ class LLMVanilla(object):
                  service_name=None,
                  db_path="db/qa_cache.sqlite",
                  db_path_new = 'db/HEADLINES.sqlite',
+                 max_workers=2,
                  ):
+        self.max_workers = max_workers
         if(service_name==None):
             service_name = getservicename()
         global mydict
@@ -172,6 +178,7 @@ class LLMVanilla(object):
                                                    stop=["\n"],
 ),
                       ):
+        '''
         result = list()
         for query in queries:
             answer = self.get_completion(query=query[0],
@@ -181,11 +188,53 @@ class LLMVanilla(object):
                                          savepath=savepath,
                                          genparams=genparams,
                                          )    
+            #print(answer)
             cost = self.get_cost()
             result.append({'_id':query[2],'answer':answer,'ref_answer':query[1],'cost':cost})
+        '''
+        result = self.parallel_process_queries(queries, service_name, use_save, use_db, savepath, genparams)
+        print(f"result is {result}")
         result = pandas.DataFrame(result)
         return result
     
+    def process_query(self, query, service_name, use_save, use_db, savepath, genparams):
+        answer = self.get_completion(
+            query=query[0],
+            service_name=service_name,
+            use_save=use_save,
+            use_db=use_db,
+            savepath=savepath,
+            genparams=genparams,
+        )
+        cost = self.get_cost()
+        return {'_id': query[2], 'answer': answer, 'ref_answer': query[1], 'cost': cost}
+
+    def parallel_process_queries(self, queries, service_name, use_save, use_db, savepath, genparams):
+        result = OrderedDict()
+        
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            future_to_query = {
+                executor.submit(
+                    self.process_query,
+                    query,
+                    service_name,
+                    use_save,
+                    use_db,
+                    savepath,
+                    genparams
+                ): query for query in queries
+            }
+            
+            for future in tqdm(concurrent.futures.as_completed(future_to_query)):
+                query = future_to_query[future]
+                try:
+                    data = future.result()
+                    result[query[2]] = data
+                except Exception as exc:
+                    print(f'Query {query} generated an exception: {exc}')
+        
+        return list(result.values())
+
     def get_last_cost(self,
                       ):
         #print("completion with cost",self.completion)

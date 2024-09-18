@@ -295,7 +295,14 @@
             "fixed_size":0
         },
 
-
+        "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo":
+        {
+            "cost_input":0.00000500,
+            "cost_output":0.00000500,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+        
         "meta-llama/Llama-3-70b-chat-hf":
         {
             "cost_input":0.0000009,
