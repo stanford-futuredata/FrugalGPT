@@ -45,7 +45,8 @@ A detailed blog with code examples:
 
 ### 🔹 2024.09.18 - Provided tradeoffs evaluation examples
 
-- ✅ Provided tradeoffs evaluation examples.
+- ✅ Provided tradeoffs evaluation examples. For example, you can run the following colab notebook to evaluate the tradeoffs achieved on the SCIQ dataset: [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://githubtocolab.com/stanford-futuredata/FrugalGPT/blob/main/examples/FrugalGPT_gen_tradeoff_SCIQ.ipynb)
+
 
 ### 🔹 2024.09.10 - Added support to more recent models
 
