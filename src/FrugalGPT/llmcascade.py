@@ -255,7 +255,7 @@ class LLMCascade(object):
             tempsave(labels,responses[key],scores[key],key)
         #print("responses",responses)  
         #print("labels",labels) 
-        print("scores",scores)
+        #print("scores",scores)
         self.responses = responses
         self.labels = labels
         self.scores = scores         
