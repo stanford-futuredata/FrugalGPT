@@ -43,10 +43,14 @@ A detailed blog with code examples:
 
 ## 📣 Updates & Changelog
 
+### 🔹 2024.09.18 - Provided tradeoffs evaluation examples
+
+- ✅ Provided tradeoffs evaluation examples.
+
 ### 🔹 2024.09.10 - Added support to more recent models
 
-- ✅ Added support of a few new models. This includes proprietary models such as GPT-4o, GPT-4-Turbo, and GPT-4o-mini, and a few open-source models such as Llama 3 (70B) and Gemma 2 (9B)
-- ✅ Released prompts and in-context examples used for COQA
+- ✅ Added support of a few new models. This includes proprietary models such as GPT-4o, GPT-4-Turbo, and GPT-4o-mini, and a few open-source models such as Llama 3.1 (405B), Llama 3 (70B) and Gemma 2 (9B)
+- ✅ Released prompts and in-context examples used for SCIQ
 
 ### 🔹 2024.01.01 - Extracted API generations 
 
