@@ -193,7 +193,7 @@ class LLMVanilla(object):
             result.append({'_id':query[2],'answer':answer,'ref_answer':query[1],'cost':cost})
         '''
         result = self.parallel_process_queries(queries, service_name, use_save, use_db, savepath, genparams)
-        print(f"result is {result}")
+        #print(f"result is {result}")
         result = pandas.DataFrame(result)
         return result
     
