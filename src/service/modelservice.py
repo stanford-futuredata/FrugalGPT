@@ -13,6 +13,9 @@ from transformers import GPT2Tokenizer
 
 from ai21 import AI21Client
 from ai21.models.chat import ChatMessage, ResponseFormat, DocumentSchema, FunctionToolDefinition, ToolDefinition, ToolParameters
+import google.generativeai as genai
+
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
 
 tokenizer_FFAI = GPT2Tokenizer.from_pretrained("gpt2")
@@ -300,7 +303,9 @@ class AI21ModelProvider(APIModelProvider):
         return tk1, tk2 
 
     def _api_call(self, endpoint, data, api_key, retries=10, retry_grace_time=10):
-        response = self.client.chat.completions.create(
+        while(1):
+            try:
+                response = self.client.chat.completions.create(
 		model=data['model'],
 		messages=[
 			ChatMessage(
@@ -317,7 +322,11 @@ class AI21ModelProvider(APIModelProvider):
 		stop=data['stopSequences'],
 		response_format=ResponseFormat(type="text"),
 )
-        return response   
+                return response 
+            except Exception as e:
+                print(f"Failed with errors {e}, retry")
+                time.sleep(retry_grace_time)
+  
 
 
 
@@ -547,11 +556,15 @@ class AnthropicModelProvider(APIModelProvider):
             max_tokens_to_sample=data['max_tokens_to_sample'],
             )  
         '''
-        response = self.client.messages.create(
+        while(1):
+            try:
+                response = self.client.messages.create(
             model=data['model'],
             max_tokens=data['max_tokens_to_sample'],
             temperature=data['temperature'],
-            #stop_sequences=stop,
+            #stop_sequences=['\n\n'],
+            system="Follow the examples to only generate the answer. Do not generate any other texts.",
+
             messages=[
             {
                 "role": "user",
@@ -564,8 +577,77 @@ class AnthropicModelProvider(APIModelProvider):
             }
         ],
             )
+                return response      
+            except:
+              time.sleep(retry_grace_time)
 
-        return response      
+class GoogleModelProvider(APIModelProvider):
+    _ENDPOINT = os.environ.get("GEMINI_ENDPOINT", "https://api.anthropic.com/v1/complete")
+    _API_KEY = os.environ.get('GEMINI_API_KEY', None)
+    _NAME = "google"
+    
+    def __init__(self, model):
+        self._model = model
+        assert self._API_KEY is not None, "Please set GEMINI_API_KEY env var for running through gemini models"
+
+    def _request_format(self,
+                        context,
+                        genparams):
+        req = {
+            "prompt": context,
+            #"echo": False,
+            "max_tokens_to_sample": genparams.max_tokens,
+            #"logprobs": 1,
+            "temperature": genparams.temperature,
+            #"top_p": 1,
+            #"stop":, # seems it does not allow \n to be the stopping token.
+            "model":self._model,
+            #"role":"user",
+        }
+        #print("the request is---")
+        #print(req)
+        return req
+    
+    def _response_format(self,
+                         response,
+                         ):
+        #print("response is",response)
+        result = dict()
+        result['raw'] = response
+        result["completion"] = response.candidates[0].content.parts[0].text
+        return result    
+    
+    def _get_io_tokens(self,context, completion):
+        usage = completion['raw'].usage_metadata
+        tk1 = usage.prompt_token_count
+        tk2 = usage.candidates_token_count
+        return tk1, tk2
+
+    def _api_call(self, endpoint, data, api_key, retries=10, retry_grace_time=10):
+        while(1):
+            try:
+                generation_config = {
+        "temperature": data['temperature'],
+        "top_p": 1,
+        "top_k": 1,
+        "max_output_tokens": data['max_tokens_to_sample'],
+        "response_mime_type": "text/plain",
+        }
+                model = genai.GenerativeModel(
+        model_name=data['model'],
+        generation_config=generation_config,
+        )
+                chat_session = model.start_chat(
+          history=[
+            ]
+        )
+
+                response = chat_session.send_message(data['prompt'])
+
+                return response 
+            except Exception as e:
+                print(f"Failed with errors {e}, retry")
+                time.sleep(retry_grace_time)
 
 class TogetherAIModelProvider(APIModelProvider):
     _ENDPOINT = os.environ.get("TOGETHERAI_ENDPOINT", "https://api.together.ai/v1/chat/completions")
@@ -611,6 +693,8 @@ _PROVIDER_MAP = {
     "openaichat":OpenAIChatModelProvider,# cleaned
     "anthropic":AnthropicModelProvider,
     "togetherai":TogetherAIModelProvider,
+    "google":GoogleModelProvider,
+
 }
 
 

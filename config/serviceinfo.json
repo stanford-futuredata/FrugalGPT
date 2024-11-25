@@ -87,6 +87,14 @@
             "fixed_size":0  
         },
 
+        "gpt-4-turbo":
+        {
+             "cost_input":0.000015,
+            "cost_output":0.000030,
+            "cost_fixed":0,
+            "fixed_size":0  
+        },
+
         "gpt-3.5-turbo":
         {
             "cost_input":0.000002,
@@ -338,6 +346,32 @@
         }
                     
     },  
+
+    "google":
+    {   "gemini-1.5-flash":
+        {
+            "cost_input":0.000000075,
+            "cost_output":0.00000030,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "gemini-1.5-flash-8b":
+        {
+            "cost_input":0.0000000375,
+            "cost_output":0.00000015,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "gemini-1.5-pro":
+        {
+            "cost_input":0.00000125,
+            "cost_output":0.000005,
+            "cost_fixed":0,
+            "fixed_size":0
+        }
+    }, 
 
     "anthropic":
     {   "claude-1":
