@@ -208,7 +208,137 @@
             "fixed_size":0
         }                    
     },
-      
+
+    "togetherai":
+    {
+      "togetherai/Qwen/Qwen2-72B-Instruct":
+      {
+          "cost_input":0.0000009,
+          "cost_output":0.0000009,
+          "cost_fixed":0,
+          "fixed_size":0
+      },
+
+      "mistralai/Mistral-7B-Instruct-v0.1":
+      {
+          "cost_input":0.0000002,
+          "cost_output":0.0000002,
+          "cost_fixed":0,
+          "fixed_size":0
+      },
+
+         "google/gemma-2b-it":
+        {
+            "cost_input":0.0000001,
+            "cost_output":0.0000001,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "google/gemma-2-9b-it":
+        {
+            "cost_input":0.0000003,
+            "cost_output":0.0000003,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "google/gemma-2-27b-it":
+        {
+            "cost_input":0.0000008,
+            "cost_output":0.0000008,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+        
+        
+        "meta-llama/Meta-Llama-3-8B-Instruct-Lite":
+        {
+            "cost_input":0.00000010,
+            "cost_output":0.00000010,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "Qwen/Qwen1.5-110B-Chat":
+        {
+            "cost_input":0.00000180,
+            "cost_output":0.00000180,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+        
+
+        "mistralai/Mistral-7B-Instruct-v0.3":
+        {
+            "cost_input":0.00000020,
+            "cost_output":0.00000020,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3-70B-Instruct-Turbo":
+        {
+            "cost_input":0.00000088,
+            "cost_output":0.00000088,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+
+
+        "meta-llama/Meta-Llama-3-70B-Instruct-Lite":
+        {
+            "cost_input":0.00000054,
+            "cost_output":0.00000054,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3-8B-Instruct-Turbo":
+        {
+            "cost_input":0.00000018,
+            "cost_output":0.00000018,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+
+
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo":
+        {
+            "cost_input":0.00000018,
+            "cost_output":0.00000018,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo":
+        {
+            "cost_input":0.00000088,
+            "cost_output":0.00000088,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+
+        "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo":
+        {
+            "cost_input":0.00000500,
+            "cost_output":0.00000500,
+            "cost_fixed":0,
+            "fixed_size":0
+        },
+        
+        "meta-llama/Llama-3-70b-chat-hf":
+        {
+            "cost_input":0.0000009,
+            "cost_output":0.0000009,
+            "cost_fixed":0,
+            "fixed_size":0
+        }
+                    
+    },  
+
     "anthropic":
     {   "claude-1":
         {
