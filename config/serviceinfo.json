@@ -211,7 +211,7 @@
 
     "togetherai":
     {
-      "togetherai/Qwen/Qwen2-72B-Instruct":
+      "Qwen/Qwen2-72B-Instruct":
       {
           "cost_input":0.0000009,
           "cost_output":0.0000009,
