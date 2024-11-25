@@ -11,6 +11,10 @@ import anthropic
 #tokenizer_FFAI = CodeGenTokenizerFast.from_pretrained("Salesforce/codegen-350M-mono")
 from transformers import GPT2Tokenizer
 
+from ai21 import AI21Client
+from ai21.models.chat import ChatMessage, ResponseFormat, DocumentSchema, FunctionToolDefinition, ToolDefinition, ToolParameters
+
+
 tokenizer_FFAI = GPT2Tokenizer.from_pretrained("gpt2")
 
 class GenerationParameter(object):
@@ -267,6 +271,7 @@ class AI21ModelProvider(APIModelProvider):
     def __init__(self, model):
         self._model = model
         assert self._API_KEY is not None, "Please set AI21_STUDIO_API_KEY env var for running through AI21 Studio"
+        self.client = AI21Client(api_key=os.environ.get("AI21_STUDIO_API_KEY"))
 
     def _request_format(self,
                         context,
@@ -276,6 +281,8 @@ class AI21ModelProvider(APIModelProvider):
             "maxTokens": genparams.max_tokens,
             "temperature": genparams.temperature,
             "stopSequences":genparams.stop,
+            "model":self._model,
+
         }           
         return req
     
@@ -284,13 +291,37 @@ class AI21ModelProvider(APIModelProvider):
                          ):
         result = dict()
         result['raw'] = response
-        result["completion"] = response['completions'][0]['data']['text']
+        result["completion"] = response.choices[0].message.content
         return result    
     
     def _get_io_tokens(self,context, completion):
-        tk1 = len(completion['raw']['prompt']['tokens'])
-        tk2 = len(completion['raw']['completions'][0]['data']['tokens'])
+        tk1 = completion['raw'].usage.prompt_tokens
+        tk2 = completion['raw'].usage.completion_tokens
         return tk1, tk2 
+
+    def _api_call(self, endpoint, data, api_key, retries=10, retry_grace_time=10):
+        response = self.client.chat.completions.create(
+		model=data['model'],
+		messages=[
+			ChatMessage(
+				role="user",
+				content=data['prompt'],
+			)
+		],
+		documents=[],
+		tools=[],
+		n=1,
+		max_tokens=data['maxTokens'],
+		temperature=data['temperature'],
+		top_p=1,
+		stop=data['stopSequences'],
+		response_format=ResponseFormat(type="text"),
+)
+        return response   
+
+
+
+
 
 class CohereAIModelProvider(APIModelProvider):
     _ENDPOINT = os.environ.get("COHERE_STUDIO_ENDPOINT", "https://api.ai21.com/studio/v1/{engine}/complete")
@@ -466,8 +497,9 @@ class AnthropicModelProvider(APIModelProvider):
     
     def __init__(self, model):
         self._model = model
-        assert self._API_KEY is not None, "Please set ANTHROPIC_API_KEY env var for running through OpenAI"
-        self.client = anthropic.Client(os.environ['ANTHROPIC_API_KEY'])
+        assert self._API_KEY is not None, "Please set ANTHROPIC_API_KEY env var for running through anthropic"
+        #self.client = anthropic.Client(os.environ['ANTHROPIC_API_KEY'])
+        self.client = anthropic.Anthropic()
         #self.client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     def _request_format(self,
@@ -478,7 +510,7 @@ class AnthropicModelProvider(APIModelProvider):
             #"echo": False,
             "max_tokens_to_sample": genparams.max_tokens,
             #"logprobs": 1,
-            #"temperature": genparams.temperature,
+            "temperature": genparams.temperature,
             #"top_p": 1,
             #"stop":, # seems it does not allow \n to be the stopping token.
             "model":self._model,
@@ -494,21 +526,45 @@ class AnthropicModelProvider(APIModelProvider):
         #print("response is",response)
         result = dict()
         result['raw'] = response
-        result["completion"] = response['completion']
+        result["completion"] = response.content[0].text
         return result    
     
     def _get_io_tokens(self,context, completion):
         #print("completion raw:",completion['raw'])
-        tk1 = anthropic.count_tokens(context)
-        tk2 = anthropic.count_tokens(completion['completion'])
+        usage = completion['raw'].usage
+        tk1 = usage.input_tokens
+        tk2 = usage.output_tokens
+        #print(completion['raw'].usage.input_tokens)
+        #tk1 = anthropic.count_tokens(context)
+        #tk2 = anthropic.count_tokens(completion['completion'])
         return tk1, tk2
 
     def _api_call(self, endpoint, data, api_key, retries=10, retry_grace_time=10):
+        '''
         response = self.client.completion(
             prompt=anthropic.HUMAN_PROMPT+data['prompt']+anthropic.AI_PROMPT,
             model=data['model'],
             max_tokens_to_sample=data['max_tokens_to_sample'],
             )  
+        '''
+        response = self.client.messages.create(
+            model=data['model'],
+            max_tokens=data['max_tokens_to_sample'],
+            temperature=data['temperature'],
+            #stop_sequences=stop,
+            messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"{data['prompt']}"
+                    }
+                ],
+            }
+        ],
+            )
+
         return response      
 
 class TogetherAIModelProvider(APIModelProvider):

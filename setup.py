@@ -12,7 +12,7 @@ setup(
         'cohere',
         'smart-open',
         'jsonlines',
-        'anthropic==0.2.10',
+        'anthropic',
         'scikit-learn',
         'evaluate',
         'scipy',
@@ -21,6 +21,7 @@ setup(
         'torch',
         'transformers',
         'accelerate',
+        'ai21',
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
