@@ -1,0 +1,20 @@
+Context: because jones/walker relates only to sufficiency of the evidence, we hereby disavow the language holding otherwise in sandoval.
+Question: Is it overruling?
+Answer: Yes
+
+Context: insofar as the givens case holds contrary to our original opinion herein or to the rule expressed in the carr case and the cases there cited, it is expressly overruled.
+Question: Is it overruling?
+Answer: Yes
+
+Context: the court also specifically ordered defendant to ""be subject to all administrative or judicial enforcement remedies available to the plaintiff as prescribed by state and federal law in a title iv-d case[.]""
+Question: Is it overruling?
+Answer: No
+
+Context: according to napa auto parts, the straws drove the vehicle ""for approximately six [] weeks and [] for between 500 to 600 miles prior to the accident with no incidents.""
+Question: Is it overruling?
+Answer: No
+
+Context: accordingly, we answer the certified question in the affirmative, disapprove deruyter, and approve the decision of the court below.
+Question: Is it overruling?
+Answer: Yes
+
