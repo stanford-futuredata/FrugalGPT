@@ -1,0 +1,26 @@
+Please answer which category (World, Sports, Business or Sci/Tech) a provided news falls into.
+
+Q: Five-year ban for Blackburn fan One of the two Blackburn Rovers Football Club fans charged with public disorder for racially abusing Dwight Yorke has been handed a five-year ban.
+A: Sports
+
+Q: Major software pirates caught A multimillion-euro software piracy ring has been broken following synchronized raids in Athens and London yesterday, Attica police said.
+A: Sci/Tech
+
+Q: Loews to Buy Entergy-Koch Pipeline  NEW YORK (Reuters) - Conglomerate Loews Corp. \&lt;A HREF="http://www.investor.reuters.com/FullQuote.aspx?ticker=LTR.N target=/stocks/quickinfo/fullquote"&gt;LTR.N&lt;/A&gt;  agreed to buy an 8,000-mile natural gas pipeline system from  Entergy-Koch LP for \$1.14 billion on Monday, in a bid to cash  in on rising U.S. demand for natural gas.
+A: Business
+
+Q: Texas A amp;M Quarterback Finds Groove Once Again Reggie McNeal switched his jersey number in the off-season, trading No. 16 for No. 1 in a salute to a departed teammate. McNeal has become the
+A: Sports
+
+Q: UPDATE 2-Rugby-Australia edge out England in Twickenham thriller Australia showed all their famed resilience to withstand a fierce fightback by England and beat the world champions 21-19 in a thunderous World Cup final repeat on Saturday.
+A: Sports
+
+Q: Ed Hardin: Bowl situation not so Peachy CHAPEL HILL; They came down from the hills Saturday, down from the hot springs and natural bridges of Virginia, deep into the heart of ACC darkness.
+A: Sports
+
+Q: Democrat Seeks Probe of Bush Aides' Travel (AP) AP. The chairwoman of the House Democrats' homeland security task force is asking Congress' independent auditors to examine travel by senior Bush administration officials in light of recent trips to hotly contested states in the 2004 presidential election.
+A: World
+
+Q: Chelsea:  \#39;No fear \#39; factor in Europe IF a football team could be entered in that famous television programme Fear Factor, then Jose Mourinho would register Chelsea. Because if Chelsea are going to reach the final of the Champions League for the
+A: Sports
+
