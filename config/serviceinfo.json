@@ -79,7 +79,24 @@
         "fixed_size":0  
         },
 
+        "gpt-4o-mini-2024-07-18":
+        {   
+        "cost_input":0.00000015,
+        "cost_output":0.0000006,
+        "cost_fixed":0,
+        "fixed_size":0  
+        },
+        
+
         "gpt-4o":
+        {
+            "cost_input":0.000005,
+            "cost_output":0.000015,
+            "cost_fixed":0,
+            "fixed_size":0  
+        },
+
+        "gpt-4o-2024-05-13":
         {
             "cost_input":0.000005,
             "cost_output":0.000015,
@@ -89,11 +106,21 @@
 
         "gpt-4-turbo":
         {
-             "cost_input":0.000015,
+             "cost_input":0.000010,
             "cost_output":0.000030,
             "cost_fixed":0,
             "fixed_size":0  
         },
+
+        "gpt-4o-2024-08-06":
+        {
+            "cost_input":0.0000025,
+            "cost_output":0.000010,
+            "cost_fixed":0,
+            "fixed_size":0  
+        },
+
+
 
         "gpt-3.5-turbo":
         {
