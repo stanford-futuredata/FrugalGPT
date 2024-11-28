@@ -130,7 +130,7 @@ class Score(object):
               #score_type='DistilBert',
               ):
         
-        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.4)
+        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.3)
         #print("train_text 0",train_texts[0])
         #print("val_text 0",val_texts[0])
         #print("----------------------------")
@@ -143,7 +143,7 @@ class Score(object):
 
         training_args = TrainingArguments(
     output_dir='./scorer_location',          # output directory
-    num_train_epochs=6,              # total number of training epochs
+    num_train_epochs=8,              # total number of training epochs
     per_device_train_batch_size=8,  # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
     warmup_steps=500,                # number of warmup steps for learning rate scheduler
