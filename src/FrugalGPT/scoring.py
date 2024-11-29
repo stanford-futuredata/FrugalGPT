@@ -23,7 +23,7 @@ from transformers import set_seed
 from transformers import GPT2Tokenizer
 import re
 
-set_seed(2023)
+set_seed(2024)
 
 text_form="em_mc"
 text_form="em"
@@ -101,7 +101,9 @@ class IMDbDataset(torch.utils.data.Dataset):
 
 class Score(object):
     def __init__(self,          
-                 score_type='DistilBert'):
+                 score_type='DistilBert',
+                 test_size=0.55,
+                 ):
         if(score_type=='DistilBert'):
             self.tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
         if(score_type=='Bert'):
@@ -121,6 +123,7 @@ class Score(object):
           self.tokenizer = T5TokenizerFast.from_pretrained('t5-large')        
 
         self.score_type = score_type
+        self.test_size = test_size
 
         
         return
@@ -130,7 +133,7 @@ class Score(object):
               #score_type='DistilBert',
               ):
         
-        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.3)
+        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=self.test_size)
         #print("train_text 0",train_texts[0])
         #print("val_text 0",val_texts[0])
         #print("----------------------------")

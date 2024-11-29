@@ -93,10 +93,12 @@ class LLMCascade(object):
               genparams=GenerationParameter(max_tokens=50, temperature=0.1, stop=['\n']),
               no_scorer_train=False,
               score_type='DistilBert',
+              score_test_size=0.55,
               prefix="",
               ):
         self.no_scorer_train = no_scorer_train
         self.score_type = score_type
+        self.score_test_size = score_test_size
         self.prefix = prefix
         # Three major steps
         # Step 1: evaluate all services on the given dataset
@@ -192,7 +194,7 @@ class LLMCascade(object):
 
 
         trainlabel = list(res_and_eval['quality'])
-        MyScore = Score(score_type=self.score_type)
+        MyScore = Score(score_type=self.score_type, test_size=self.score_test_size)
         model = MyScore.train(traintext,trainlabel)
         return MyScore, model
     
