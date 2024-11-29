@@ -11,6 +11,15 @@ def compute_score(data,metric='em'):
     score['cost'] = data['cost'].mean()
     return score
 
+def compute_score_full(data,metric='em'):
+    
+    evaluate
+
+    score={"em":0}
+    if(metric=="em"):
+        data['em'] = data.apply(calculate_score, axis=1)
+    score['cost'] = data['cost'].mean()
+    return score
 
     # Define the scoring function
 def calculate_score(row):
