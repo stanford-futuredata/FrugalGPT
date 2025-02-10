@@ -33,15 +33,28 @@ Now you are ready to use the [local intro notebook](intro.ipynb)!
 
 
 You can get an overview via our Twitter threads:
-* [**Introducing**](https://twitter.com/james_y_zou/status/1656285537185980417?cxt=HHwWgoCzqfa6p_wtAAAA)  [**FrugalGPT**](https://twitter.com/matei_zaharia/status/1656295461953650688?cxt=HHwWgIC2zc_8q_wtAAAA) (May 10, 2023)
+* [**Introducing**](https://twitter.com/james_y_zou/status/1656285537185980417?cxt=HHwWgoCzqfa6p_wtAAAA)  [**FrugalGPT**](https://twitter.com/matei_zaharia/status/1656295461953650688?cxt=HHwWgIC2zc_8q_wtAAAA) (May 10, 2023) 
 
-And read more in the academic paper:
+And read more in the pre-print paper:
 * [**FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance**](https://arxiv.org/pdf/2305.05176.pdf)
 
 A detailed blog with code examples:
-* [**Implementing FrugalGPT: Reducing LLM Costs & Improving Performance**](https://portkey.ai/blog/implementing-frugalgpt-smarter-llm-usage-for-lower-costs/)
+* [**Implementing FrugalGPT: Reducing LLM Costs & Improving Performance**](https://portkey.ai/blog/implementing-frugalgpt-smarter-llm-usage-for-lower-costs/) * 
+
+Our updated paper in Transactions on Machine Learning: 
+* [**FrugalGPT: How to Use Large Language Models While
+Reducing Cost and Improving Performance**](https://openreview.net/pdf?id=cSimKw5p6R) * 
 
 ## 📣 Updates & Changelog
+
+### 🔹 2025.02.09 - Evaluation on recent models
+
+- ✅ Added support to Cluade 3.5 Sonnet, Gemini 1.5 Pro, and more models.
+
+- ✅ Released evaluations with more recent models. For example, you can run the following colab notebook to evaluate the tradeoffs achieved on the AGNEWS dataset using 2024 model: [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://githubtocolab.com/stanford-futuredata/FrugalGPT/blob/main/examples/FrugalGPT_gen_tradeoff_AGNEWS2024.ipynb)
+
+- ✅ Updated the paper and reference format
+
 
 ### 🔹 2024.09.18 - Provided tradeoffs evaluation examples
 
@@ -65,10 +78,10 @@ If you use FrugalGPT in a research paper, please cite our work as follows:
 
 
 ```
-@article{chen2023frugalgpt,
+@article{chen2024frugalgpt,
   title={FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance},
   author={Chen, Lingjiao and Zaharia, Matei and Zou, James},
-  journal={arXiv preprint arXiv:2305.05176},
-  year={2023}
+  journal={Transactions on Machine Learning Research},
+  year={2024}
 }
 ```
