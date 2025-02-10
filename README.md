@@ -49,7 +49,7 @@ Reducing Cost and Improving Performance**](https://openreview.net/pdf?id=cSimKw5
 
 ### 🔹 2025.02.09 - Evaluation on recent models
 
-- ✅ Added support to Cluade 3.5 Sonnet, Gemini 1.5 Pro, and more models.
+- ✅ Added support to Cluade 3.5 Sonnet, Gemini 1.5 Pro, and a few more models.
 
 - ✅ Released evaluations with more recent models. For example, you can run the following colab notebook to evaluate the tradeoffs achieved on the AGNEWS dataset using 2024 model: [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://githubtocolab.com/stanford-futuredata/FrugalGPT/blob/main/examples/FrugalGPT_gen_tradeoff_AGNEWS2024.ipynb)
 
